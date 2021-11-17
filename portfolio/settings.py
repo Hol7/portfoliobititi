@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-&zb-#bqm&f%gq-4)v-f68kw53gdfj^$87y@nzc2mci4i_1d0w&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://fabronelive.herokuapp.com/', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -45,12 +46,16 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    
 ]
 
 ROOT_URLCONF = 'portfolio.urls'
@@ -126,7 +131,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'media')
 ]
 
+
+
 STATIC_URL = '/static/'
+django_heroku.settings(locals())
+
+
 STATIC_ROOT = BASE_DIR / "stacticfiles"
 
 MEDIA_URL = "/media/"
